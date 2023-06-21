@@ -1,42 +1,45 @@
 package ru.netology.domain;
 
 public class Radiofan {
-    private int currentRadioStation;
+    private int maxStation;
     private int minStation = 0;
-    private int maxStation = 9;
-    private int currentVolume;
-    private int minVolume = 0;
+    private int currentStation;
     private int maxVolume = 100;
+    private int minVolume = 0;
+    private int currentVolume = 30;
 
-
-    public int getCurrentRadioStation() {
-        return currentRadioStation;
+    public Radiofan() {
+        this.maxStation = 9;
     }
 
-    public void setCurrentRadioStation(int currentRadioStation) {
-        if (currentRadioStation < minStation) {
+    public Radiofan(int counterStation) {
+        this.maxStation = counterStation - 1;
+    }
 
+    public int getCurrentStation() {
+        return currentStation;
+    }
+
+    public void setCurrentStation(int currentStation) {
+        if (currentStation < minStation || currentStation > maxStation) {
             return;
         }
-        if (currentRadioStation > maxStation) {
-            return;
-        }
-        this.currentRadioStation = currentRadioStation;
+        this.currentStation = currentStation;
     }
 
-    public void shouldNextRadioStation() {
-        if (currentRadioStation >= maxStation) {
-            setCurrentRadioStation(minStation);
+    public void nextStation() {
+        if (currentStation == maxStation) {
+            this.currentStation = minStation;
         } else {
-            setCurrentRadioStation(currentRadioStation + 1);
+            this.currentStation = currentStation + 1;
         }
     }
 
-    public void shouldPrevRadioStation() {
-        if (currentRadioStation <= minStation) {
-            setCurrentRadioStation(maxStation);
+    public void prevStation() {
+        if (currentStation == minStation) {
+            this.currentStation = maxStation;
         } else {
-            setCurrentRadioStation(currentRadioStation - 1);
+            this.currentStation = currentStation - 1;
         }
     }
 
@@ -45,25 +48,25 @@ public class Radiofan {
     }
 
     public void setCurrentVolume(int currentVolume) {
-        if (currentVolume < minVolume) {
+        if (currentVolume < minVolume || currentVolume > maxVolume) {
+            return;
+        } else {
+            this.currentVolume = currentVolume;
+        }
+    }
 
+    public void volumeUp() {
+        if (currentVolume == maxVolume) {
             return;
         }
-        if (currentVolume > maxVolume) {
+        this.currentVolume = currentVolume + 1;
+    }
+
+    public void volumeDown() {
+        if (currentVolume == minVolume) {
             return;
         }
-        this.currentVolume = currentVolume;
+        this.currentVolume = currentVolume - 1;
     }
+}
 
-    public void increaseVolume() {
-        if (currentVolume < maxVolume) {
-            currentVolume++;
-        }
-    }
-
-    public void reduceVolume() {
-        if (currentVolume > minVolume) {
-            currentVolume--;
-        }
-        }
-    }
